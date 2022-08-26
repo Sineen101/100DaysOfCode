@@ -1,6 +1,3 @@
-from re import I
-
-
 heights = input("Enter the heights of the people: ").split()
 
 for n in range(0, len(heights)):    # Convert the string to int

@@ -1,5 +1,4 @@
 import os
-from goto import goto, label
 
 
 def clear():
@@ -74,7 +73,6 @@ def calculator():
         answer1 = operations[operation](num1, num2)
 
         print(f"{num1} {operation} {num2} = {answer1}")
-        label .continuation  # label is a goto statement
         continuation = input(
             f"Type 'y' to continue calculating with {answer1} or 'n' to exit:\n")
         if continuation == "y":  # if the user types y, then the program will continue to the next line
@@ -82,10 +80,13 @@ def calculator():
         elif continuation == "n":   # if the user types n, then the program will exit
             continue_calculation = False
             clear()
-            calculator()    # Recursive function
-        else:
-            print("Invalid input")
-            goto .continuation  # goto is a goto statement
+            exitting = input(
+                "Type 'y' to play again or 'n' to exit the calculator: ")
+            if not exitting:
+                calculator()    # Recursive function
+            elif exitting:
+                print("Thank you for using this calculator app!")
+                exit()
 
 
 calculator()    # Calling the calculator function to start the program
