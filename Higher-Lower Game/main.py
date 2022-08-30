@@ -382,6 +382,7 @@ while not end_game:
         option1 = rightanswer
         option2 = random.choice(data)
     else:
+        clear()
         print("Your answer is wrong!")
         print(f"The right answer is: {format_data(rightanswer)}")
         print(f"Your score is {score}")
