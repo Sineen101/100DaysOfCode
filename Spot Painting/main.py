@@ -2,7 +2,7 @@ import colorgram
 import turtle
 from random import choice
 
-colors = colorgram.extract("painting", 8)
+colors = colorgram.extract("painting.jpg", 8)
 rgb_colors = []
 for color in colors:
     r = color.rgb.r
@@ -13,7 +13,7 @@ for color in colors:
 
 print(rgb_colors)
 
-#Incase colorgram doesn't work, use a list of each color rgb value tuples
+# Incase colorgram doesn't work, use a list of each color rgb value tuples
 
 t = turtle.Turtle()
 s = turtle.Screen()
