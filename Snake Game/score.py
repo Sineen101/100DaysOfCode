@@ -23,4 +23,5 @@ class Score(Turtle):
         self.color("Yellow")
         self.goto(x=0, y=0)
         self.write(
-            f"GAME OVER!", move=False, align='center', font=('Courier', 40, 'bold'))
+            "GAME OVER!", move=False, align='center', font=('Courier', 40, 'bold'))
+

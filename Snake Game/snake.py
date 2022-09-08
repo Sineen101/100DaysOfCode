@@ -55,11 +55,7 @@ class Snake:
         x_neg = self.head.xcor()*-1
         y_pos = self.head.ycor()
         y_neg = self.head.ycor()*-1
-        if x_pos > 300:
+        if x_pos > 300 or x_pos < -300:
             self.head.goto(x_neg, y_pos)
-        elif x_pos < -300:
-            self.head.goto(x_pos, y_pos)
-        elif y_pos > 300:
+        elif y_pos > 300 or y_pos < -300:
             self.head.goto(x_pos, y_neg)
-        elif y_pos < -300:
-            self.head.goto(x_pos, y_pos)

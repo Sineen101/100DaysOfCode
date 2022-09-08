@@ -37,13 +37,11 @@ while not game_end:
     if snake.head.xcor() > 340 or snake.head.xcor() < -340 or snake.head.ycor() > 340 or snake.head.ycor() < -340:
         snake.recenter()
 
-    for part in snake.segments:
-        if part == snake.head:
-            pass
-            # Snake head collision with its tail
-        elif snake.head.distance(part) < 10:
-            game_end = False
+    for part in snake.segments[1:]:
+        # Snake head collision with its tail
+        if snake.head.distance(part) < 10:
             score.game_over()
+            game_end = True
 
 
 screen.exitonclick()
