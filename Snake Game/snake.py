@@ -59,3 +59,10 @@ class Snake:
             self.head.goto(x_neg, y_pos)
         elif y_pos > 300 or y_pos < -300:
             self.head.goto(x_pos, y_neg)
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000, 1000)
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]

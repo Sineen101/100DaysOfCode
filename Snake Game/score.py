@@ -1,4 +1,4 @@
-from turtle import Turtle
+from turtle import Turtle, update
 
 
 class Score(Turtle):
@@ -6,22 +6,26 @@ class Score(Turtle):
     def __init__(self) -> None:
         super().__init__()
         self.score = 0
-        self.color("Coral")
+        with open("high_score.txt", "r") as file:
+            self.high_scores = int(file.read())
+        self.color("Yellow")
         self.penup()
         self.goto(x=0, y=290)
         self.hideturtle()
-        self.write(
-            f"Score: {self.score} ", move=False, align='center', font=('Courier', 15, 'normal'))
+        self.update()
 
     def increment(self):
         self.score += 1
+        self.update()
+
+    def update(self):
         self.clear()
         self.write(
-            f"Score: {self.score} ", move=False, align='center', font=('Courier', 15, 'normal'))
+            f"Score: {self.score}          High Score: {self.high_scores}", move=False, align='center', font=('Courier', 15, 'normal'))
 
-    def game_over(self):
-        self.color("Yellow")
-        self.goto(x=0, y=0)
-        self.write(
-            "GAME OVER!", move=False, align='center', font=('Courier', 40, 'bold'))
-
+    def reset(self):
+        if self.score > self.high_scores:
+            with open("high_score.txt", "w") as file:
+                file.write(str(self.score))
+        self.score = 0
+        self.update()
