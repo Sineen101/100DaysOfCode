@@ -1,4 +1,5 @@
-from turtle import Turtle, update
+from time import sleep
+from turtle import Turtle
 
 
 class Score(Turtle):
@@ -6,7 +7,7 @@ class Score(Turtle):
     def __init__(self) -> None:
         super().__init__()
         self.score = 0
-        with open("high_score.txt", "r") as file:
+        with open(".\high_score.txt", "r") as file:
             self.high_scores = int(file.read())
         self.color("Yellow")
         self.penup()
@@ -25,7 +26,8 @@ class Score(Turtle):
 
     def reset(self):
         if self.score > self.high_scores:
-            with open("high_score.txt", "w") as file:
+            with open(".\high_score.txt", "w") as file:
                 file.write(str(self.score))
+                self.high_scores = self.score
         self.score = 0
         self.update()

@@ -1,4 +1,3 @@
-from asyncore import close_all
 from turtle import Screen
 from snake import Snake
 from food import Food
