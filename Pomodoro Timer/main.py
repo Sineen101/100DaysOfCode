@@ -1,9 +1,5 @@
-from cProfile import label
-from re import M
+from playsound import playsound
 from tkinter import *
-from tkinter import font
-from tkinter.tix import COLUMN
-from turtle import title
 import math
 
 #--------------CONSTANTS--------------#
@@ -52,6 +48,10 @@ def start_timer():
 
 
 #-----------------COUNTDOWN MECHANISM-----------------#
+def play():
+    playsound("1.mp3")
+
+
 def countdown(count):
 
     count_min = math.floor(count / 60)
@@ -71,6 +71,7 @@ def countdown(count):
         for i in range(work_sessions):
             mark += "✔"
         check_marks.config(text=mark)
+        play()
 
 
 #-----------------UI CODE BLOCK-----------------#
