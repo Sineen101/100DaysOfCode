@@ -1,7 +1,10 @@
+import email
+from re import search
 from tkinter import *
 from tkinter import messagebox
 from random import choice, shuffle, randint
 import pyperclip
+import json
 
 
 #------------------SAVE PASSWORD------------------#
@@ -10,20 +13,35 @@ def save_password():
     website = e1.get()
     email = e2.get()
     passwd = e3.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": passwd,
+        }
+    }
 
     if len(website) == 0 or len(passwd) == 0:
         messagebox.showinfo(
             title="Oops", message="Please don't leave any fields empty!")
     else:
-        messagebox.askokcancel(
-            title=website, message=f"These are the details entered:\n Email: {email}\nPassword: {passwd}\nIs it ok to save?")
-        if messagebox.askokcancel:
-            with open("data.txt", "a") as f:
-                f.write(f"{website} | {email} | {passwd}\n")
+        try:
+            with open("data.json", "r") as f:
+                # Reading old data in the file to a dictionary
+                data = json.load(f)
+        except FileNotFoundError:
+            with open("data.json", "w") as f:
+                # This will overwrite the data in the file
+                json.dump(new_data, f, indent=4)
+        else:
+            data.update(new_data)  # Updating the old data with the new data
+            with open("data.json", "w") as f:
+                json.dump(data, f, indent=4)
+        finally:
             e1.delete(0, END)
             e2.delete(0, END)
             e3.delete(0, END)
             e1.focus()
+
 
 #------------------GENERATE PASSWORD------------------#
 
@@ -43,6 +61,27 @@ def passwd_generator():
     passwd = "".join(password)            # Converts the password to a string
     e3.insert(0, passwd)
     pyperclip.copy(passwd)
+
+
+#------------------SEARCH PASSWORD------------------#
+def search_password():
+    website = e1.get()
+    try:
+        with open("data.json") as f:
+            data = json.load(f)  # Reading the data from the file
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found")
+    except json.decoder.JSONDecodeError:
+        messagebox.showinfo(title="Error", message="No Data Found")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(
+                title=website, message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(
+                title="Error", message=f"No details for {website} exists.")
 
 
 # -----------------UI CODE BLOCK-----------------#
@@ -68,17 +107,19 @@ l2.grid(row=2, column=0)
 l3.grid(row=3, column=0)
 
 # -----------------ENTRY CODE BLOCK-----------------#
-e1 = Entry(width=42)
-e2 = Entry(width=42)
+e1 = Entry(width=21)
+e2 = Entry(width=43)
 e3 = Entry(width=21)
-e1.grid(row=1, column=1, columnspan=2)
+e1.grid(row=1, column=1, columnspan=1)
 e2.grid(row=2, column=1, columnspan=2)
 e2.insert(0, "random@gmail.com")
 e3.grid(row=3, column=1, columnspan=1)
 
 # -----------------BUTTON CODE BLOCK-----------------#
+b0 = Button(width=14, text="Search", bg="#80b3ff", command=search_password)
 b1 = Button(text="Generate Password", bg="#80b3ff", command=passwd_generator)
 b2 = Button(width=61, text="Add", bg="#80b3ff", command=save_password)
+b0.grid(row=1, column=2, padx=5, pady=5)
 b1.grid(row=3, column=2)
 b2.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 
