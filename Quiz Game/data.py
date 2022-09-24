@@ -1,20 +1,11 @@
-# Questions added from https://opentdb.com/
+import requests
 
-question_data = [{"category": "Science: Computers", "type": "boolean", "difficulty": "medium", "question": "FLAC stands for 'Free Lossless Audio Condenser'", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "The very first recorded computer 'bug' was a moth found inside a Harvard Mark II computer.", "correct_answer": "True", "incorrect_answers": ["False"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "'Windows NT' is a monolithic kernel.", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "To bypass US Munitions Export Laws, the creator of the PGP published all the source code in book form. ", "correct_answer": "True", "incorrect_answers": ["False"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "MacOS is based on Linux.", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "The open source program Redis is a relational database server.", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "The first dual-core CPU was the Intel Pentium D.", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "The last Windows operating system to be based on the Windows 9x kernel was Windows 98.", "correct_answer": "False", "incorrect_answers": ["True"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium",
-                     "question": "Android versions are named in alphabetical order.", "correct_answer": "True", "incorrect_answers": ["False"]},
-                 {"category": "Science: Computers", "type": "boolean", "difficulty": "medium", "question": "Linus Sebastian is the creator of the Linux kernel, which went on to be used in Linux, Android, and Chrome OS.", "correct_answer": "False", "incorrect_answers": ["True"]}]
+
+parameters = {
+    "amount": 10,
+    "type": "boolean",
+}
+
+response = requests.get("https://opentdb.com/api.php", params=parameters)
+response.raise_for_status()
+question_data = response.json()["results"]
