@@ -1,12 +1,13 @@
 import requests
 from twilio.rest import Client
+import os
 
 
 parameters = {
     "lat": 34.006962,   # Your latitude
     "lon": 71.533058,   # Your longitude
     "exclude": "current,minutely,daily",
-    "appid": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",    # Your API Key
+    "appid": os.environ.get("API_KEY"),    # Your API Key
 }
 
 response = requests.get(
@@ -21,7 +22,8 @@ for weather in condition_code:
         umberella_needed = True
 
 if umberella_needed:
-    client = Client("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "your_auth_token")
+    # Your Twilio SID and Auth Token emported as environment variables
+    client = Client(os.environ.get("SID"), os.environ.get("AUTH_TOKEN"))
     message = client.messages \
         .create(
             body="It's going to rain today. Remember to bring an 🌂",
