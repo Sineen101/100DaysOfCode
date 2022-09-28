@@ -48,7 +48,7 @@ if abs(difference_percentage) > 5:
 
     client = Client(os.environ.get("TWILIO_ACCOUNT_SID"),
                     os.environ.get("TWILIO_AUTH_TOKEN"))
-    for news in formatted_news:
-        message = client.messages.create(body=news, from_=os.environ.get(
+    for final_news in formatted_news:
+        message = client.messages.create(body=final_news, from_=os.environ.get(
             "TWILIO_PHONE_NUMBER"), to=os.environ.get("MY_PHONE_NUMBER"))
         print(message.status)
